@@ -16,13 +16,19 @@ h1 {
 
 * {
     box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    min-width: 100%;
 }
 
 .nav-container {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0 100px 0 100px;
+    align-items: center;
+    margin: 0 8em 0 8em;
 }
 
 .title {
@@ -101,6 +107,18 @@ h1 {
     display: inline-block;
 }
 
+.lineCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
 
 ::-webkit-scrollbar {
     width: 10px;

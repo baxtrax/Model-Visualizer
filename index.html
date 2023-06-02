@@ -11,29 +11,36 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
-        <script src="scripts/script.js"></script>
+        <script src="scripts/interactions.js"></script>
+        <script src="scripts/canvas.js"></script>
     </head>
     <body>
         <div class="nav-container">
             <h1 class="title">Model Visualizer</h1>
             <div class="dropdown">
-            <div class="dropdown-button" id="dropdown-button" >
-                <h2 class="dropdown-text">Model Input</h2>
-                <img src="/resources/images/caret-down-solid.svg" loading="lazy" alt="dropdown arrow" class="dropdown-arrow">
-            </div>
-            <div class="form-container" id="form-container" style="display: none;"">
-                <form id="model-input-form" name="model-input-form" data-name="Model Input Form" method="get" aria-label="Model Input Form">
-                    <textarea placeholder="Pytorch printed model contents goes here" maxlength="5000" id="field" name="field" data-name="Field" class="textarea"></textarea>
-                    <input type="submit" value="Submit" data-wait="Please wait..." class="submit-button">
-                </form>
-                <!-- <div class="form-done" tabindex="-1" role="region" aria-label="Email Form success">
-                    <div>Thank you! Your submission has been received!</div>
+                <div class="dropdown-button" id="dropdown-button" >
+                    <h2 class="dropdown-text">Model Input</h2>
+                    <img src="/resources/images/caret-down-solid.svg" loading="lazy" alt="dropdown arrow" class="dropdown-arrow">
                 </div>
-                <div class="form-fail" tabindex="-1" role="region" aria-label="Email Form failure">
-                    <div>Oops! Something went wrong while submitting the form.</div>
-                </div> -->
+                <div class="form-container" id="form-container" style="display: none;"">
+                    <form id="model-input-form" name="model-input-form" data-name="Model Input Form" method="get" aria-label="Model Input Form">
+                        <textarea placeholder="Pytorch printed model contents goes here" maxlength="5000" id="field" name="field" data-name="Field" class="textarea"></textarea>
+                        <input type="submit" value="Submit" data-wait="Please wait..." class="submit-button">
+                    </form>
+                    <!-- <div class="form-done" tabindex="-1" role="region" aria-label="Email Form success">
+                        <div>Thank you! Your submission has been received!</div>
+                    </div>
+                    <div class="form-fail" tabindex="-1" role="region" aria-label="Email Form failure">
+                        <div>Oops! Something went wrong while submitting the form.</div>
+                    </div> -->
+                </div>
             </div>
         </div>
-    </div>
+        <div class="button-container">
+            <button class="attracted-button">Button 1</button>
+            <button class="attracted-button">Button 2</button>
+            <button class="attracted-button">Button 3</button>
+        </div>
+        <canvas class="lineCanvas" id="lineCanvas"></canvas>
     </body>
 </html>
