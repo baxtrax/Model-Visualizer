@@ -1,5 +1,5 @@
-const maxDistance = 200; // Adjust this value to control attraction range
-const maxMovement = 50; // Adjust this value to control maximum movement
+const maxDistance = 100; // Adjust this value to control attraction range
+const maxMovement = 25; // Adjust this value to control maximum movement
 
 var buttons = null;
 var canvas = null;
@@ -16,12 +16,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial setup
     handleResize();
+    requestAnimationFrame(repeatEveryAnimationFrame);
 });
 
-
+// Update button attraction
 document.addEventListener('mousemove', function(event) {
-  updateLines()
   buttons.forEach(button => {
+    // Get needed values
     const buttonRect = button.getBoundingClientRect();
     const centerX = buttonRect.left + buttonRect.width / 2;
     const centerY = buttonRect.top + buttonRect.height / 2;
@@ -30,6 +31,7 @@ document.addEventListener('mousemove', function(event) {
     const distanceX = mouseX - centerX;
     const distanceY = mouseY - centerY;
 
+    // If within valid distance
     if (Math.abs(distanceX) <= maxDistance && Math.abs(distanceY) <= maxDistance) {
       const movementX = (distanceX / maxDistance) * maxMovement;
       const movementY = (distanceY / maxDistance) * maxMovement;
@@ -40,8 +42,6 @@ document.addEventListener('mousemove', function(event) {
     }
   });
 });
-
-// /////////////////////////////////
 
 // Function to update line positions
 function updateLines() {
@@ -65,6 +65,16 @@ function updateLines() {
   ctx.lineTo(center2X, center2Y);
   ctx.lineTo(center3X, center3Y);
   ctx.stroke();
+}
+
+function repeatEveryAnimationFrame() {
+    // Do whatever
+    updateLines();
+    requestAnimationFrame(repeatEveryAnimationFrame);
+}
+
+function updateButtonList() {
+    buttons = document.querySelectorAll('.attracted-button');
 }
 
 function handleResize() {
