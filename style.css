@@ -19,9 +19,15 @@ h1 {
     margin: 0;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
 body {
-    min-width: 100vh; /*Fix this */
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 .nav-container {
@@ -118,22 +124,29 @@ body {
 }
 
 .button-container {
+    height: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
-.attracted-button {
+.attracted-button { 
     position: relative;
     display: inline-block;
     padding: 10px 20px;
     background-color: #FFFFFF;
     color: black;
+    max-height: 50px;
     text-align: center;
     font-size: 16px;
     border-radius: 20px;
-    cursor: pointer;
     transition: transform 0.3s ease;
-  }
+}
+
+.attracted-button.clickable {
+    background-color: #3898ec;
+    cursor: pointer;
+}
 
 ::-webkit-scrollbar {
     width: 10px;
