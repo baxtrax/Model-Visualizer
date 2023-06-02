@@ -152,7 +152,17 @@ function addButton(item) {
     newButton.className = "attracted-button clickable"
     newButton.addEventListener('click', () => {
       buttonContainer.innerHTML = "" // Clear current buttons
+      
+      // Back button if not top level
+      if (item.getValue !== "model") {
+        const backButton = document.createElement('button');
+        backButton.className = "attracted-button clickable back"
+        backButton.textContent = "<- Go Back"
+        buttonContainer.appendChild(backButton)
+      }
+
       item.getChildren().forEach(addButton)
+
     });
     
 
@@ -161,4 +171,5 @@ function addButton(item) {
   }
 
   buttonContainer.appendChild(newButton);
+  updateButtonList()
 }
