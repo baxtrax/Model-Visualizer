@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 38px;
+    line-height: 44px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 100px 0 100px;
+}
+
+.title {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+}
+
+.dropdown {
+    position: relative;
+    display: block;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    cursor: pointer;
+}
+
+.dropdown-button {
+    position: static;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.dropdown-text {
+    padding-left: 15vw;
+    position: static;
+}
+
+.dropdown-arrow {
+    width: 35px;
+    height: 35px;
+}
+
+.form-container {
+    flex: 1;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+}
+
+.textarea {
+    min-height: 30vh;
+    border-radius: 20px;
+    overflow: visible;
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    resize: none;
+    overflow-y: scroll;
+    overflow-wrap: normal;
+}
+
+.textarea:focus {
+    border-color: #3898ec;
+    outline: 0;
+}
+
+.submit-button {
+    border-radius: 20px;
+    text-align: left;
+
+    color: #fff;
+    line-height: inherit;
+    cursor: pointer;
+    background-color: #3898ec;
+    border: 0;
+
+    padding: 9px 15px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment  {
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track-piece  {
+    background-color: #eeeeee;
+    -webkit-border-radius: 16px;
+}
+
+::-webkit-scrollbar-thumb {
+    height: 10px;
+    background-color: #666;
+    border: 1px solid #151111;
+    -webkit-border-radius: 16px;
+}
+
+::-webkit-scrollbar-corner { 
+    background: transparent;
+}
