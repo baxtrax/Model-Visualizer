@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => { 
-    const viz = new Visualization(50, 250);
+    const viz = new Visualization(25, 100);
 })
 
 class Visualization {
@@ -32,8 +32,6 @@ class Visualization {
         // Start animation loop
         requestAnimationFrame(this.repeatEveryAnimationFrame);
         this.createButtons();
-        this.updateButtons();
-
     }
 
     // Resizes the canvas based on given window size
@@ -100,28 +98,30 @@ class Visualization {
         this.ctx.stroke(); // Draw path
     }
 
+    // Creates and appends buttons to the container based off the current set parent node
     createButtons() {
         let parentNodeChildren = this.currentParentNode.getChildren();
         for (let i = 0; i < parentNodeChildren.length; i++) {
 
             // Determine button class and onclick
-            let className = "attracted-button";
+            let className = "attracted-button"; 
             let onclick = "";
             if (parentNodeChildren[i].getChildren().length > 0) {
                 className += " clickable";
-                onclick = "updateButtons"
+                onclick = () => this.setCurrentParentNode(parentNodeChildren[i])
             } 
             this.addButtonToContainer(parentNodeChildren[i].getValue(), className, onclick)
             console.log("Added: " + parentNodeChildren[i].getValue());
             this.updateButtonsList();
-
         }
     }
 
     updateButtons() {
-        console.log("Who doing that")
         // Delete old buttons (not back)
-        // Set new parent node
+        this.buttonContainer.innerHTML = "";
+        
+        // Create new buttons
+        this.createButtons();
     }
 
     updateButtonsList() {
@@ -137,14 +137,16 @@ class Visualization {
     }
 
     // SETTERS
-    setCurrentParentNode(node_name) {
-        this.currentParentNode = node_name;
+    setCurrentParentNode(node) {
+        this.currentParentNode = node;
+        console.log("New parent node: " + node.getValue())
+        this.updateButtons();
     }
 
     // GETTERS
 
     // Gets current set parent node for the visualization
-    getCurrentParentNode(node_name) {
+    getCurrentParentNode(node) {
         return this.currentParentNode;
     }
 
