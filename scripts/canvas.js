@@ -1,6 +1,7 @@
 const maxDistance = 100; // Adjust this value to control attraction range
 const maxMovement = 25; // Adjust this value to control maximum movement
 
+var currentParentNode = "model";
 var buttons = null;
 var buttonContainer = null;
 var canvas = null;
@@ -21,7 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
     requestAnimationFrame(repeatEveryAnimationFrame);
 
     console.log("Creating new buttons")
-    rootNode.getChildren().forEach(addButton)
+    // rootNode.getChildren().forEach(addButton)
+
+
 
     console.log("Updating button list")
     updateButtonList()
@@ -32,7 +35,7 @@ document.addEventListener('mousemove', function(event) {
   buttons.forEach(button => {
     // Get needed values
     const buttonRect = button.getBoundingClientRect();
-    const centerX = buttonRect.left + buttonRect.width / 2;
+    const centerX = buttonRect.left +this.buttonAttractionCheck buttonRect.width / 2;
     const centerY = buttonRect.top + buttonRect.height / 2;
     const mouseX = event.clientX;
     const mouseY = event.clientY;
@@ -142,34 +145,38 @@ layer1ChildNode2.addChild(layer11ChildNode3)
 layer1ChildNode2.addChild(layer11ChildNode4)
 layer1ChildNode2.addChild(layer11ChildNode5)
 
-function addButton(item) {
-  console.log("Addig new button...")
-  const newButton = document.createElement('button');
-  newButton.textContent = item.getValue()
+layer11ChildNode3.addChild(new TreeNode('test'))
 
-  buttonChildren = item.getChildren()
-  if (buttonChildren.length != 0) {
-    newButton.className = "attracted-button clickable"
-    newButton.addEventListener('click', () => {
-      buttonContainer.innerHTML = "" // Clear current buttons
-      
-      // Back button if not top level
-      if (item.getValue !== "model") {
-        const backButton = document.createElement('button');
-        backButton.className = "attracted-button clickable back"
-        backButton.textContent = "<- Go Back"
-        buttonContainer.appendChild(backButton)
-      }
 
-      item.getChildren().forEach(addButton)
+function createBackButton() {
+  const backButton = document.createElement('button');
+  backButton.textContent = "<- Go Back";
+  backButton.onclick = () => {
+  buttonContainer.appendChild(backButton);
+}
 
-    });
-    
+function hideBackButton() {
 
-  } else {
-    newButton.className = "attracted-button"
-  }
+}
+// function addButton(item) {
+//   const newButton = document.createElement('button');
+//   newButton.textContent = item.getValue()
 
-  buttonContainer.appendChild(newButton);
-  updateButtonList()
+//   buttonChildren = item.getChildren()
+
+//   // If the button has children
+//   if (buttonChildren.length != 0) {
+//     newButton.className = "attracted-button clickable"
+
+//     // Button method when clicked
+//     newButton.addEventListener('click', () => {
+//       buttonContainer.innerHTML = "" // Clear current buttons
+//       console.log(item.getParent())
+//       item.getChildren().forEach(addButton)
+//     });
+//   } else {
+//     newButton.className = "attracted-button"
+//   }
+//   buttonContainer.appendChild(newButton);
+//   updateButtonList()
 }
