@@ -31,6 +31,7 @@ class Visualization {
 
         // Start animation loop
         requestAnimationFrame(this.repeatEveryAnimationFrame);
+        this.createBackButton();
         this.createButtons();
     }
 
@@ -116,9 +117,21 @@ class Visualization {
         }
     }
 
+    createBackButton() {
+        let className = "attracted-button clickable back"
+        let onclick = () => this.setCurrentParentNode(this.currentParentNode.getParent())
+        this.addButtonToContainer("<- Go Back", className, onclick)
+    }
+
     updateButtons() {
         // Delete old buttons (not back)
-        this.buttonContainer.innerHTML = "";
+        const buttonsToKeep = document.querySelectorAll('.attracted-button.clickable.back');
+        this.buttonContainer.innerHTML = ""; // Clear all buttons
+
+        // Readd backbutton
+        buttonsToKeep.forEach(button => {
+            this.buttonContainer.appendChild(button);
+        });
         
         // Create new buttons
         this.createButtons();
