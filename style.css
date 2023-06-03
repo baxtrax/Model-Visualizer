@@ -40,18 +40,21 @@ body {
 
 .title {
     flex-grow: 1;
-    flex-shrink: 1;
     flex-basis: 0%;
+    min-width: 15ch;
 }
 
 .dropdown {
     position: relative;
-    display: block;
+    display: flex;
+    height: 100%;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: flex-end;
     flex-grow: 0;
     flex-shrink: 1;
     flex-basis: auto;
+    flex-direction: row;
+    align-items: center;
     cursor: pointer;
 }
 
@@ -65,6 +68,8 @@ body {
 
 .dropdown-text {
     padding-left: 15vw;
+    margin-bottom: 0;
+    margin-right: 10px;
     position: static;
 }
 
@@ -136,6 +141,7 @@ body {
     display: inline-block;
     padding: 10px 20px;
     background-color: #FFFFFF;
+    border: 1px solid #ccc;
     color: black;
     max-height: 50px;
     text-align: center;
@@ -145,12 +151,16 @@ body {
 }
 
 .attracted-button.clickable {
+    color: white;
     background-color: #3898ec;
+    border-color: #3898ec;
     cursor: pointer;
 }
 
 .attracted-button.clickable.back {
+    color: white;
     background-color: #f67f24;
+    border-color: #f67f24;
 }
 
 .hidden {
