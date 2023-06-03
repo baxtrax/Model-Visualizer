@@ -126,7 +126,7 @@ class Visualization {
     createBackButton() {
         let className = "attracted-button clickable back hidden"
         let onclick = () => this.setCurrentParentNode(this.currentParentNode.getParent())
-        this.addButtonToContainer("<- Go Back", className, onclick)
+        this.addButtonToContainer("⬅ Go back", className, onclick)
         this.backButton = document.querySelectorAll('.attracted-button.clickable.back')[0];
     }
 
