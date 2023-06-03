@@ -153,6 +153,10 @@ body {
     background-color: #f67f24;
 }
 
+.hidden {
+    display: none;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;

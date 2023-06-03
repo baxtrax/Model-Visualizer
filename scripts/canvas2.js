@@ -31,6 +31,8 @@ class Visualization {
 
         // Start animation loop
         requestAnimationFrame(this.repeatEveryAnimationFrame);
+
+        // Create initial set of buttons
         this.createBackButton();
         this.createButtons();
     }
@@ -84,6 +86,9 @@ class Visualization {
 
         // Creates path across all buttons (Left -> Right)
         for (let i = 0; i < this.buttons.length-1; i++) {
+            // Skip back button if it is hidden
+            if(this.buttons[i] == this.backButton && this.backButton.classList.contains('hidden')) continue;
+
             const rect1    = this.buttons[i].getBoundingClientRect();
             const rect2    = this.buttons[i+1].getBoundingClientRect();
             const center1X = rect1.left + rect1.width / 2; // Button Left
@@ -117,12 +122,15 @@ class Visualization {
         }
     }
 
+    // Creates a back button
     createBackButton() {
         let className = "attracted-button clickable back"
         let onclick = () => this.setCurrentParentNode(this.currentParentNode.getParent())
         this.addButtonToContainer("<- Go Back", className, onclick)
+        this.backButton = document.querySelectorAll('.attracted-button.clickable.back')[0];
     }
 
+    // Updates the buttons to match new parent node
     updateButtons() {
         // Delete old buttons (not back)
         const buttonsToKeep = document.querySelectorAll('.attracted-button.clickable.back');
@@ -137,10 +145,12 @@ class Visualization {
         this.createButtons();
     }
 
+    // Updates the list of buttons used for the visualization
     updateButtonsList() {
         this.buttons = document.querySelectorAll('.attracted-button');
     }
 
+    // Adds a button to the buttons container
     addButtonToContainer(name, className, onclick) {
         const newButton = document.createElement('button');
         newButton.textContent = name;
@@ -154,6 +164,13 @@ class Visualization {
         this.currentParentNode = node;
         console.log("New parent node: " + node.getValue())
         this.updateButtons();
+
+
+        if (node.getParent() === null) {
+            this.backButton.classList.add('hidden')
+        } else {
+            this.backButton.classList.remove('hidden')
+        }
     }
 
     // GETTERS
