@@ -87,15 +87,21 @@ const input_str = `ResNet(
 function parseLine(line) {
     const matches = line.match(/^(\s*)(?:\()?(.*?)(?:\))?(:\s+)(.*)$/)
     if (matches) {
-        return {offset: matches[1], name: matches[2], type: matches[4]};
+        return {offset: matches[1].substring(4), name: matches[2], type: matches[4]};
     }
 }
 
-// TODO Remove 2 spaces from offset (Unneeded)
-list = []
-lines = input_str.split("\n") 
-lines.shift()// Shift gets rid of first entry
-lines.forEach(line => {
-    list.push(parseLine(line))
-});
-console.log(list)
+function generateTree(input) {
+    // TODO Remove 2 spaces from offset (Unneeded)
+    list = []
+    lines = input.split("\n") 
+    lines.shift()// Shift gets rid of first entry
+    lines.forEach(line => {
+        list.push(parseLine(line))
+    });
+
+    return list
+}
+
+console.log(generateTree(input_str));
+
