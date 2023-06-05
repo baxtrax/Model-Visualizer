@@ -30,12 +30,15 @@ body {
     flex-direction: column;
 }
 
-.nav-container {
+.container {
+    padding: 0 100px 0 100px;
+}
+
+.nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0 100px 0 100px;
 }
 
 .title {
@@ -129,7 +132,7 @@ body {
     z-index: -1;
 }
 
-.button-container {
+.button-contents {
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -149,6 +152,24 @@ body {
     font-size: 16px;
     border-radius: 20px;
     transition: transform 0.3s ease;
+}
+
+.img-tooltip {
+    background-size: cover;
+    background-position: center;
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 20px;
+    padding: 5px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 5px;
+    transition: opacity 0.3s, visibility 0.3s;
+    width: 200px;
+    height: 200px;
 }
 
 
@@ -174,6 +195,11 @@ body {
 }
 
 .attracted-button:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+.attracted-button.visualization:hover::before {
     opacity: 1;
     visibility: visible;
 }

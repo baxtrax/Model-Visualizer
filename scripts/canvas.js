@@ -12,7 +12,7 @@ class Visualization {
         
         // Grab elements
         this.buttons = document.querySelectorAll('.attracted-button');
-        this.buttonContainer = document.getElementById('button-container')
+        this.buttonContainer = document.getElementById('button-contents')
         this.canvas = document.getElementById('lineCanvas');
         this.ctx = this.canvas.getContext('2d');
     
@@ -35,6 +35,7 @@ class Visualization {
         // Create initial set of buttons
         this.createBackButton();
         this.createButtons();
+        this.setTooltipBackgroundImages();
     }
 
     // Resizes the canvas based on given window size
@@ -119,6 +120,7 @@ class Visualization {
             this.addButtonToContainer(parentNodeChildren[i].getName(), 
                                       parentNodeChildren[i].getType(), 
                                       className, 
+                                      parentNodeChildren[i].getImagePath(),
                                       onclick)
             console.log("Added: " + parentNodeChildren[i].getName());
             this.updateButtonsList();
@@ -129,7 +131,7 @@ class Visualization {
     createBackButton() {
         let className = "attracted-button clickable back hidden"
         let onclick = () => this.setCurrentParentNode(this.currentParentNode.getParent())
-        this.addButtonToContainer("⬅ Go back", "", className, onclick)
+        this.addButtonToContainer("⬅ Go back", "", className, "", onclick)
         this.backButton = document.querySelectorAll('.attracted-button.clickable.back')[0];
     }
 
@@ -154,13 +156,38 @@ class Visualization {
     }
 
     // Adds a button to the buttons container
-    addButtonToContainer(name, layer, className, onclick) {
+    addButtonToContainer(name, layer, className, img, onclick) {
         const newButton = document.createElement('button');
         newButton.textContent = name;
         newButton.setAttribute('data-tooltip', layer);
+        newButton.setAttribute('data-img', img)
         newButton.className = className;
         newButton.onclick = onclick;
+        if (!(img == null)) {
+            newButton.classList.add('visualization')
+        }
         this.buttonContainer.appendChild(newButton);
+    }
+
+    setTooltipBackgroundImages() {
+        this.buttons.forEach(function(button) {
+            if (button.classList.contains('visualization')) {
+                var imagePath = button.getAttribute('data-img');
+                var imgTooltipElement = document.createElement('div');
+                imgTooltipElement.classList.add('img-tooltip');
+                imgTooltipElement.style.backgroundImage = 'url(' + imagePath + ')';
+                imgTooltipElement.style.display = 'none';
+                button.appendChild(imgTooltipElement);
+    
+                button.addEventListener('mouseenter', function() {
+                    imgTooltipElement.style.display = 'block';
+                });
+              
+                button.addEventListener('mouseleave', function() {
+                    imgTooltipElement.style.display = 'none';
+                });
+            }
+        });
     }
 
     // SETTERS
@@ -168,7 +195,7 @@ class Visualization {
         this.currentParentNode = node;
         console.log("New parent node: " + node.getName())
         this.updateButtons();
-
+        this.setTooltipBackgroundImages();
 
         if (node.getParent() === null) {
             console.log("hidden")
@@ -188,7 +215,7 @@ class Visualization {
     // Gets a predefined Layer Tree
     getInitialLayerTree() {
         const rootNode = new TreeNode('model');
-        const rootChildNode1 = new TreeNode('conv1', 'Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)');
+        const rootChildNode1 = new TreeNode('conv1', 'Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)', './resources/images/feature_visualizations/last_gen_image.jpeg');
         const rootChildNode2 = new TreeNode('bn1', 'BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)');
         const rootChildNode3 = new TreeNode('maxpool', 'MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)');
         const rootChildNode4 = new TreeNode('classifier', 'Sequential(');

@@ -1,8 +1,8 @@
 class TreeNode {
-  constructor(name, type) {
+  constructor(name, type, img) {
     this.name = name;
     this.type = type;
-    this.imagePath = null;
+    this.imagePath = img;
     this.children = [];
     this.parent = null;
   }
