@@ -6,12 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const parser = new Parser();
     const viz = new Visualization(25, 100);
     const tree = parser.parseInput()
-    console.log(tree)
     viz.setCurrentParentNode(tree)
 
 
     parser.submitButton.addEventListener('click', () => {
-      const tree = parseInput()
+      const tree = parser.parseInput()
       viz.setCurrentParentNode(tree)
     })
 
