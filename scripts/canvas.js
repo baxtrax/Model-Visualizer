@@ -1,18 +1,13 @@
-document.addEventListener('DOMContentLoaded', () => { 
-    const viz = new Visualization(25, 100);
-})
-
 class Visualization {
     constructor(maxAttractionMovement, maxAttractionDistance) {
         this.maxAttractionDistance = maxAttractionDistance;
         this.maxAttractionMovement = maxAttractionMovement;
 
-        this.layerTree = this.getInitialLayerTree(); // Returns root node of tree
         this.currentParentNode = this.layerTree; 
         
         // Grab elements
         this.buttons = document.querySelectorAll('.attracted-button');
-        this.buttonContainer = document.getElementById('button-container')
+        this.buttonContainer = document.getElementById('button-contents')
         this.canvas = document.getElementById('lineCanvas');
         this.ctx = this.canvas.getContext('2d');
     
@@ -32,9 +27,10 @@ class Visualization {
         // Start animation loop
         requestAnimationFrame(this.repeatEveryAnimationFrame);
 
-        // Create initial set of buttons
+        // // Create initial set of buttons
         this.createBackButton();
-        this.createButtons();
+        // this.createButtons();
+        // this.setTooltipBackgroundImages();
     }
 
     // Resizes the canvas based on given window size
@@ -106,7 +102,7 @@ class Visualization {
 
     // Creates and appends buttons to the container based off the current set parent node
     createButtons() {
-        let parentNodeChildren = this.currentParentNode.getChildren();
+        const parentNodeChildren = this.currentParentNode.getChildren();
         for (let i = 0; i < parentNodeChildren.length; i++) {
 
             // Determine button class and onclick
@@ -116,8 +112,12 @@ class Visualization {
                 className += " clickable";
                 onclick = () => this.setCurrentParentNode(parentNodeChildren[i])
             } 
-            this.addButtonToContainer(parentNodeChildren[i].getValue(), className, onclick)
-            console.log("Added: " + parentNodeChildren[i].getValue());
+            this.addButtonToContainer(parentNodeChildren[i].getName(), 
+                                      parentNodeChildren[i].getType(), 
+                                      className, 
+                                      parentNodeChildren[i].getImagePath(),
+                                      onclick)
+            console.log("Added: " + parentNodeChildren[i].getName());
             this.updateButtonsList();
         }
     }
@@ -126,7 +126,7 @@ class Visualization {
     createBackButton() {
         let className = "attracted-button clickable back hidden"
         let onclick = () => this.setCurrentParentNode(this.currentParentNode.getParent())
-        this.addButtonToContainer("⬅ Go back", className, onclick)
+        this.addButtonToContainer("⬅ Go back", "", className, null, onclick)
         this.backButton = document.querySelectorAll('.attracted-button.clickable.back')[0];
     }
 
@@ -151,22 +151,49 @@ class Visualization {
     }
 
     // Adds a button to the buttons container
-    addButtonToContainer(name, className, onclick) {
+    addButtonToContainer(name, layer, className, img, onclick) {
         const newButton = document.createElement('button');
         newButton.textContent = name;
+        newButton.setAttribute('data-tooltip', layer);
+        newButton.setAttribute('data-img', img)
         newButton.className = className;
         newButton.onclick = onclick;
+        if (!(img == null)) {
+            newButton.classList.add('visualization')
+        }
         this.buttonContainer.appendChild(newButton);
+    }
+
+    setTooltipBackgroundImages() {
+        this.buttons.forEach(function(button) {
+            if (button.classList.contains('visualization')) {
+                var imagePath = button.getAttribute('data-img');
+                var imgTooltipElement = document.createElement('div');
+                imgTooltipElement.classList.add('img-tooltip');
+                imgTooltipElement.style.backgroundImage = 'url(' + imagePath + ')';
+                imgTooltipElement.style.display = 'none';
+                button.appendChild(imgTooltipElement);
+    
+                button.addEventListener('mouseenter', function() {
+                    imgTooltipElement.style.display = 'block';
+                });
+              
+                button.addEventListener('mouseleave', function() {
+                    imgTooltipElement.style.display = 'none';
+                });
+            }
+        });
     }
 
     // SETTERS
     setCurrentParentNode(node) {
         this.currentParentNode = node;
-        console.log("New parent node: " + node.getValue())
+        console.log("New parent node: " + node.getName())
         this.updateButtons();
-
+        this.setTooltipBackgroundImages();
 
         if (node.getParent() === null) {
+            console.log("hidden")
             this.backButton.classList.add('hidden')
         } else {
             this.backButton.classList.remove('hidden')
@@ -178,59 +205,5 @@ class Visualization {
     // Gets current set parent node for the visualization
     getCurrentParentNode(node) {
         return this.currentParentNode;
-    }
-
-    // Gets a predefined Layer Tree
-    getInitialLayerTree() {
-        const rootNode = new TreeNode('model');
-        const rootChildNode1 = new TreeNode('conv1');
-        const rootChildNode2 = new TreeNode('bn1');
-        const rootChildNode3 = new TreeNode('maxpool');
-        const rootChildNode4 = new TreeNode('classifier');
-        const rootChildNode5 = new TreeNode('layer1');
-        const rootChildNode6 = new TreeNode('layer2');
-        const rootChildNode7 = new TreeNode('layer3');
-        const rootChildNode8 = new TreeNode('layer4');
-
-        const layer1ChildNode1 = new TreeNode('0');
-        const layer10ChildNode1 = new TreeNode('conv1');
-        const layer10ChildNode2 = new TreeNode('bn1');
-        const layer10ChildNode3 = new TreeNode('relu');
-        const layer10ChildNode4 = new TreeNode('conv2');
-        const layer10ChildNode5 = new TreeNode('bn2');
-
-        const layer1ChildNode2 = new TreeNode('1');
-        const layer11ChildNode1 = new TreeNode('conv1');
-        const layer11ChildNode2 = new TreeNode('bn1');
-        const layer11ChildNode3 = new TreeNode('relu');
-        const layer11ChildNode4 = new TreeNode('conv2');
-        const layer11ChildNode5 = new TreeNode('bn2');
-
-        rootNode.addChild(rootChildNode1);
-        rootNode.addChild(rootChildNode2);
-        rootNode.addChild(rootChildNode3);
-        rootNode.addChild(rootChildNode4);
-        rootNode.addChild(rootChildNode5);
-        rootNode.addChild(rootChildNode6);
-        rootNode.addChild(rootChildNode7);
-        rootNode.addChild(rootChildNode8);
-
-        rootChildNode5.addChild(layer1ChildNode1);
-        layer1ChildNode1.addChild(layer10ChildNode1);
-        layer1ChildNode1.addChild(layer10ChildNode2);
-        layer1ChildNode1.addChild(layer10ChildNode3);
-        layer1ChildNode1.addChild(layer10ChildNode4);
-        layer1ChildNode1.addChild(layer10ChildNode5);
-
-
-        rootChildNode5.addChild(layer1ChildNode2);
-        layer1ChildNode2.addChild(layer11ChildNode1);
-        layer1ChildNode2.addChild(layer11ChildNode2);
-        layer1ChildNode2.addChild(layer11ChildNode3);
-        layer1ChildNode2.addChild(layer11ChildNode4);
-        layer1ChildNode2.addChild(layer11ChildNode5);
-
-        layer11ChildNode3.addChild(new TreeNode('test'));
-        return rootNode;
     }
 }

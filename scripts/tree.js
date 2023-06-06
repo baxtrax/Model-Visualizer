@@ -1,6 +1,8 @@
 class TreeNode {
-  constructor(value) {
-    this.value = value;
+  constructor(name, type, img) {
+    this.name = name;
+    this.type = type;
+    this.imagePath = img;
     this.children = [];
     this.parent = null;
   }
@@ -38,7 +40,15 @@ class TreeNode {
     return this.parent;
   }
 
-  getValue() {
-    return this.value;
+  getName() {
+    return this.name;
+  }
+
+  getType() {
+    return this.type;
+  }
+
+  getImagePath() {
+    return this.imagePath;
   }
 }
