@@ -85,23 +85,60 @@ const input_str = `ResNet(
   `
 
 function parseLine(line) {
-    const matches = line.match(/^(\s*)(?:\()?(.*?)(?:\))?(:\s+)(.*)$/)
-    if (matches) {
-        return {offset: matches[1].substring(4), name: matches[2], type: matches[4]};
+  const matches = line.match(/^(\s*)(?:\()?(.*?)(?:\))?(:\s+)(.*)$/)
+  if (matches) {
+      return {offset: matches[1].substring(4).length/2, name: matches[2], type: matches[4]};
+  }
+}
+
+function parseInput(input) {
+  linesParsed = []
+  lines = input.split("\n") 
+  lines.shift()// Shift gets rid of first entry
+  lines.forEach(line => {
+    const parsedLine = parseLine(line)
+    if (!(parsedLine == null)) {
+      linesParsed.push(parseLine(line))
     }
+  });
+  const rootNode = new TreeNode('model');
+  generateTree(linesParsed, rootNode);
+  return rootNode;
 }
 
-function generateTree(input) {
-    // TODO Remove 2 spaces from offset (Unneeded)
-    list = []
-    lines = input.split("\n") 
-    lines.shift()// Shift gets rid of first entry
-    lines.forEach(line => {
-        list.push(parseLine(line))
-    });
-
-    return list
+// to prevent circular reference
+function removeParent(node) {
+  delete node.parent
+  // just because unclosed parens are horrid
+  if(node?.type?.endsWith?.("(")) node.type = node.type.slice(0, -1)
+  node.children.forEach(removeParent)
+  if(!node.children.length) delete node.children
 }
 
-console.log(generateTree(input_str));
+function generateTree(linesParsed, node) {
+  let lastOffset = -1
+  for (const line of linesParsed) {
+    const curr = new TreeNode(line.name, line.type)
+    if (line.offset < lastOffset) {
+      const steps = lastOffset - line.offset
+      let target = node.parent
+      for(let i = 0; i < steps; i++) target = target.parent
+      
+      target.addChild(curr)
+    } else if (line.offset === lastOffset)
+      node.parent.addChild(curr)
+    else node.addChild(curr)
+    lastOffset = line.offset
+    node = curr
+  }
+}
+
+result = parseInput(input_str)
+removeParent(result)
+
+console.log(result)
+
+
+
+
 
