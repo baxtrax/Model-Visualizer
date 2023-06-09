@@ -8,24 +8,12 @@ Easy to use website that dynamically gives a view of a model. Additonally can sh
 
 The website will default to a [Resnet18 (Kaiming He et al.)](https://arxiv.org/abs/1512.03385) network that has been modified to work with the [CIFAR10 (Alex Krizhevsky)](https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf) dataset. **Additionally all layers that are `Conv2d` layers will show a feature visualization on hover.**
 
-### Try it out here! --> https://baxtrax.github.io/Model-Visualizer/
-
-![image](https://github.com/baxtrax/Model-Visualizer/assets/34373485/5c358087-00bb-4bb6-a699-123999ceb367)
-
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a name="readme-top"></a>
-
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
   <ol>
     <li>
       <a href="#about-the-code">About The Code</a>
-      <ul>
-        <li><a href="#training">Training</a></li>
-        <li><a href="#feature-visualization-creation">Feature Visualization Creation</a></li>
-        <li><a href="#validation">Validation</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -37,14 +25,18 @@ The website will default to a [Resnet18 (Kaiming He et al.)](https://arxiv.org/a
     <li>
       <a href="#usage">Usage</a>
       <ul>
-        <li><a href="#feature-visualization-creation--validation">Feature Visualization Creation / Validation</a></li>
-        <li><a href="#training-models">Training-Models</a></li>
+        <li><a href="#html-launch">HTML launch</a></li>
       </ul>
     </li>
   </ol>
 </details>
 
+### Try it out here! --> https://baxtrax.github.io/Model-Visualizer/
 
+![image](https://github.com/baxtrax/Model-Visualizer/assets/34373485/5c358087-00bb-4bb6-a699-123999ceb367)
+
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+<a name="readme-top"></a>
 
 <!-- ABOUT THE CODE-->
 ## About The Code
