@@ -43,20 +43,20 @@ The website will default to a [Resnet18 (Kaiming He et al.)](https://arxiv.org/a
 
 The javascript code that runs this website is broken into specific modules to help with readiblity. 
 
-* Canvas.js
+* [canvas.js](scripts/canvas.js)
   * Drawing the lines connecting each button
   * Updating the canvas
   * Button creation / tree traversal
   * Button navigation
   * Button attractions
-* Interactions.js
+* [interactions.js](scripts/interactions.js)
   * Model input
   * Model input interaction
   * Orchastraction of the creation and visualization of the new model
-* Modelparser.js 
+* [modelparser.js](scripts/modelparser.js)
   * Parses pytorch print model input string into a tree data structure (Via. regex)
   * Cleaning up string input
-* Tree.js
+* [tree.js](scripts/tree.js)
   * Tree data structure used to store the model and navigate through
 
 > All javascript files are located in the [scripts](scripts) folder.
